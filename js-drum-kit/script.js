@@ -11,7 +11,7 @@
         if(!audio) return; //only if audio exists
         audio.currentTime = 0; //rewind before each play
         audio.play();
-        key.classList.add('playing');
+        key.classList.toggle('playing'); // changed add for toggle due to transition not removing when hitting keys real fast
     }  
 
     function removeTransition(e) {
