@@ -4,12 +4,16 @@ const checkBoxes = document.querySelectorAll('input[type="checkbox"]');
 
 function onShiftHold(e) {
     if(e.keyCode != 16) return;
-    checkBoxes.forEach((checkBox, boxIndex) => checkBox.addEventListener("click", handleClick));
+    checkBoxes.forEach((checkBox, boxIndex) => {
+        checkBox.addEventListener("click", function () {
+            handleClick(e, boxIndex);
+        });
+    });
 }
 
-function handleClick(e) {
+function handleClick(e, boxIndex) {
     console.log("What was clicked:");
-    console.dir(this);
+    console.dir(boxIndex);
 }
 
 function removeClickListener(e) {
