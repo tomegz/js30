@@ -1,23 +1,21 @@
-document.addEventListener("keydown", onShiftHold);
-document.addEventListener("keyup", removeClickListener)
-const checkBoxes = document.querySelectorAll('input[type="checkbox"]');
+const checkBoxes = document.querySelectorAll('.inbox input[type="checkbox"]');
+let lastClickedBox;
+checkBoxes.forEach(checkBox => checkBox.addEventListener("click", handleClick));
 
-function onShiftHold(e) {
-    if(e.keyCode != 16) return;
-    checkBoxes.forEach((checkBox, boxIndex) => {
-        checkBox.addEventListener("click", function () {
-            handleClick(e, boxIndex);
-        });
-    });
-}
-
-function handleClick(e, boxIndex) {
-    console.log("What was clicked:");
-    console.dir(boxIndex);
-}
-
-function removeClickListener(e) {
-    if(e.keyCode != 16) return;
-    console.log("here");
-    checkBoxes.forEach(checkBox => checkBox.removeEventListener("click", handleClick));
+function handleClick(e) {
+    let inBetween = false;
+    //check if shift was held and if checkbox is being checked
+    //then loop through each checkbox, flip the flag if checkbox is clicked 
+    //or was clicked previously, check boxes inbetween
+    if(e.shiftKey && this.checked) {
+      checkBoxes.forEach(checkBox => {
+         if(checkBox === this || checkBox === lastClickedBox) {
+             inBetween = !inBetween;
+         } 
+         if(inBetween) {
+             checkBox.checked = true;
+         }
+      });
+    }
+    lastClickedBox = this;
 }
