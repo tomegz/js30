@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+</head>
+<body>
+
+  <script>
+    // start with strings, numbers and booleans
+    // let age = 100;
+    // let age2 = age;
+    // console.log(age, age2);
+    // age = 200;
+    // console.log(age, age2);
+
+    // let name = 'Tom';
+    // let name2 = name;
+    // console.log(name, name2);
+    // name = 'Tomasz';
+    // console.log(name, name2);
+
+    // Let's say we have an array
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    // and we want to make a copy of it.
+    const team = players;
+
+    console.log(players, team);
+    // You might think we can just do something like this:
+    // team[3] = 'Lux';
+
+    // this is editing the original array since 'team' is a reference to the original array - not a copy!
+      
+    // how to make copies:
+    // 1
+    const team2 = players.slice();
+    // 2
+    const team3 = [].concat(players);
+    // 3 use the new ES6 Spread
+    const team4 = [...players];
+    team4[3] = 'heeee hawww';
+    console.log(team4);
+    // 4
+    const team5 = Array.from(players);
+    // now when we update it, the original one isn't changed
+
+    // The same thing goes for objects, let's say we have a person object
+    const person = {
+      name: 'Tomasz Bubala',
+      age: 80
+    };
+
+    // and think we make a copy:
+    // const captain = person;
+    // captain.number = 99;
+
+    // here's how to make a copy:
+    const cap2 = Object.assign({}, person, { number: 99, age: 12 });
+    console.log(cap2);
+
+    // maybe this will come out in ES7
+    // const cap3 = {...person};
+
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+
+    const tom = {
+      name: 'Tom',
+      age: 24,
+      social: {
+        twitter: '@tomaszbubala',
+        facebook: 'Tomasz Bubala'
+      }
+    };
+
+    console.clear();
+    console.log(tom);
+    //making a copy
+    const dev = Object.assign({}, tom);
+    //this is deep cloning but poor performance
+    const dev2 = JSON.parse(JSON.stringify(tom));
+
+
+  </script>
+
+</body>
+</html>
