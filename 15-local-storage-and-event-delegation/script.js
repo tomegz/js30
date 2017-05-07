@@ -3,6 +3,7 @@ const itemsList = document.querySelector('.plates');
 const items = JSON.parse(localStorage.getItem("items")) || [];
 
 addItems.addEventListener("submit", addItem);
+itemsList.addEventListener("click", toggleDone); 
 populateList(items, itemsList);
 
 function addItem(e) {
@@ -27,4 +28,13 @@ function populateList(plates = [], platesList) {
          </li> 
        `; 
     }).join("");
+}
+
+function toggleDone(e) {
+    if(!e.target.matches("input")) return; //event delegation
+    const el = e.target
+    const index = el.dataset.index;
+    items[index].done = !items[index].done;
+    localStorage.setItem("items", JSON.stringify(items));
+    populateList(items, itemList);
 }
